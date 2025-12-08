@@ -69,11 +69,18 @@ def download_file(url):
         st.error(f"Failed to download URL: {e}")
         return None
 
+import concurrent.futures
+
 def scan_file(file_path, key):
     try:
-        client = get_client(key)
-        # st.status will handle the spinner now
-        result = client.detect_file(file_path)
+        # Run in a separate thread to avoid asyncio loop conflicts with Streamlit
+        def _run_scan():
+            c = get_client(key)
+            return c.detect_file(file_path)
+            
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(_run_scan)
+            result = future.result()
         return result
     except Exception as e:
         st.error(f"Error during scan: {e}")
