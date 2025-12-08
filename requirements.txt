@@ -1,5 +1,0 @@
-streamlit
-realitydefender==0.1.6
-aiohttp<3.9.0
-nest_asyncio==1.6.0
-requests

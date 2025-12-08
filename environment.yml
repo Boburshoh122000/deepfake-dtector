@@ -1,0 +1,12 @@
+name: deepfake-detector
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - streamlit
+    - realitydefender==0.1.6
+    - aiohttp==3.8.6
+    - nest_asyncio==1.6.0
+    - requests
